@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Auth;
+use App\Http\Controllers\Api\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,11 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+Route::post('register', [Auth::class, '_register']);
+Route::post('login', [Auth::class, '_login']);
+Route::apiResource('test', TestController::class)->middleware('auth:api');
 // Passport Keys
 //Encryption keys generated successfully.
 //Personal access client created successfully.
